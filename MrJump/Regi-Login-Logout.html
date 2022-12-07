@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <title>MrJump: Registration/Login</title>                                                               <!--Tab Name-->
+            <meta name="description" content="">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="CSS/Website.CSS">                                                          <!--Links Style-->
+        </head>
+        <body>
+
+            <a href="JumperGame.HTML">Game</a>                                                                      <!--Navigation-->
+            <a href="scoreboard.html">Scoreboard</a>
+
+            <div id="reglog">
+
+                <!--USER GREETING-->
+
+                <h1 id="Greeting">Hello </h1>
+
+                <!--REGISTRATION-->
+
+                <h2>Register</h2> 
+
+                Email: <input type="email" id="emailIn" pattern="(?=.*[@])"><br>                                    <!--Email input and ID-->
+                Username: <input type="username" id="usernameIn" pattern="(?=.*[A-Z]).{10,}"><br>                   <!--Username input and ID-->
+                First Name: <input type="firstname" id="firstnameIn" pattern="(?=.*[A-Z])"><br>                     <!--First Name input and ID-->
+                Second Name:<input type="secondname" id="secondnameIn" pattern="(?=.*[A-Z])"><br>                   <!--Second Name input and ID-->
+                Password: <input type="password" id="passwordIn" pattern="(?=.*[0-9])(?=.*[A-Z])"> <br>             <!--Password input and ID-->
+                Confirm Password: <input type="password" id="confirmpasswordIn"><br>                                <!--Confirm Password input and ID-->
+                <button  id="registerbutton" onclick="store();">Register</button>
+
+                <!--LOGIN-->
+
+                <h2>Login</h2>
+
+                Email: <input type="email" id="emailLIn"><br>                                                        <!--Email input and ID-->
+                Username: <input type="username" id="usernameLIn"><br>                                               <!--Username input and ID-->
+                Password: <input type="password" id="passwordLIn"><br>                                               <!--Password input and ID-->
+
+                <button  onclick="take();">Login</button>                                                            <!--function buttons-->
+                <button  onclick="leave();">Logout</button>
+
+                <p style="color: red;" id="response"></p>                
+
+            </div>
+               
+
+            <!--VALIDATION HEADINGS-->
+
+            <div id="emailmsg">                                                                                       <!--Divs for validation areas-->
+                <h4>Email Must Contain A "@" Sign</h4>
+                <p class="wrong" id="at">A @ Sign</p>
+            </div>
+            
+            <div id="usernamemsg">
+                <h4>Username Must Include A Capital Letter And Be less than 10 characters</h4>
+                <p class="wrong" id="capital">A Capital Letter</p>
+                <p class="wrong" id="length">Less Than Or Equal To 10 Chracters</p>
+            </div>
+            
+            <div id="passwordmsg">
+                <h4>Password Must Contain Atleast A Single Capital Letter and Atleast A Single Number</h4>
+                <p class="wrong" id="capitalp">A Capital Letter</p>
+                <p class="wrong" id="number">A Number</p>
+            </div>            
+
+            <Script>
+
+                //CHECK WHOSES LOGGED
+
+                window.onload = ()=> {                                                                              //When window loads...
+                if(sessionStorage.loggedInUser !== undefined){
+                    document.getElementById("Greeting").innerHTML = "Hello, " + sessionStorage.loggedInUser;        //Displays to the user that they are logged in
+                }
+                }
+
+                //REGRISTRATION
+                
+                function store(){ 
+
+                    let email = document.getElementById ('emailIn').value;
+                    let username = document.getElementById ('usernameIn').value;
+                    let password = document.getElementById ('passwordIn').value;
+                    let confirmpassword = document.getElementById ('confirmpasswordIn').value;
+                    let firstname = document.getElementById ('firstnameIn').value;
+                    let secondname = document.getElementById ('secondnameIn').value;
+
+                    let usrObj = {
+                        email: email,
+                        username: username,
+                        firstname: firstname,
+                        secondname: secondname,
+                        password: password,
+                        confirmpassword: confirmpassword,
+                        topScore: 0
+                    }
+
+                    if (usrObj.confirmpassword === usrObj.password){                                                    //Makes sure passowrd is what user wants.
+                                localStorage[usrObj.username] = JSON.stringify(usrObj);
+                                document.getElementById("response").innerHTML = "Your registration is a success!";
+                    }
+                        else{
+                            document.getElementById("response").innerHTML = "Your passwords did not match!";
+                        }
+
+                    localStorage[username] = JSON.stringify(usrObj);
+                }   
+
+                //VALIDATION CODE
+                
+                var typedemail = document.getElementById("emailIn");
+                var typedusername = document.getElementById("usernameIn");
+                var typedpassword = document.getElementById("passwordIn");
+                var capital = document.getElementById("capital");
+                var capitalp = document.getElementById("capitalp");
+                var number = document.getElementById("number");
+                var at = document.getElementById("at");
+                var length = document.getElementById("length");
+
+                //------EMAIL
+
+                typedemail.onfocus = function() {                                                                      //Makes it so msgbox appears when clicked
+                    document.getElementById("emailmsg").style.display = "block";
+                }
+
+                typedemail.onblur = function() {                                                                       //Makes it so msgbox disappears
+                    document.getElementById("emailmsg").style.display = "none";
+                }
+
+                typedemail.onkeyup = function() {                                                                      //Checks if criteria is met
+                    var ats = /[@]/g;
+                    if(typedemail.value.match(ats)) {
+                        at.classList.remove("wrong");
+                        at.classList.add("correct");
+                    } 
+                        else {
+                            at.classList.remove("correct");
+                            at.classList.add("wrong");
+                        }   
+                }
+
+                //------USERNAME
+
+                typedusername.onfocus = function() {
+                    document.getElementById("usernamemsg").style.display = "block";
+                }
+
+                typedusername.onblur = function() {
+                    document.getElementById("usernamemsg").style.display = "none";
+                }
+                
+                typedusername.onkeyup = function() {
+                    var upperCaseLetters = /[A-Z]/g;
+                    if(typedusername.value.match(upperCaseLetters)) {
+                        capital.classList.remove("wrong");
+                        capital.classList.add("correct");
+                    } 
+                        else {
+                            capital.classList.remove("correct");
+                            capital.classList.add("wrong");
+                        }
+                
+                    if(typedusername.value.length <= 10) {
+                        length.classList.remove("wrong");
+                        length.classList.add("correct");
+                    } 
+                        else {
+                            length.classList.remove("correct");
+                            length.classList.add("wrong");
+                        }
+                }
+
+                //------PASSWORD
+
+                typedpassword.onfocus = function() {
+                    document.getElementById("passwordmsg").style.display = "block";
+                }
+
+                typedpassword.onblur = function() {
+                    document.getElementById("passwordmsg").style.display = "none";
+                }
+
+                typedpassword.onkeyup = function() {
+                    var numbers = /[0-9]/g;
+                    if(typedpassword.value.match(numbers)) {
+                        number.classList.remove("wrong");
+                        number.classList.add("correct");
+                    } 
+                        else {
+                            number.classList.remove("correct");
+                            number.classList.add("wrong");
+                        }
+
+                            var upperCaseLettersp = /[A-Z]/g;
+                            if(typedpassword.value.match(upperCaseLettersp)) {
+                                capitalp.classList.remove("wrong");
+                                capitalp.classList.add("correct");
+                            } 
+                                else {
+                                    capitalp.classList.remove("correct");
+                                    capitalp.classList.add("wrong");
+                                }
+                }
+
+                //LOGIN
+
+                function take(){ 
+                    document.getElementById("response").innerHTML= "";
+
+                    let email = document.getElementById ('emailIn').value; 
+                    let username = document.getElementById ('usernameIn').value;
+                    let password = document.getElementById ('passwordIn').value;
+
+                    let usrFound = false;
+                    for(let key of Object.keys(localStorage)){
+                        if(username === key){                                                              //Checks if key and username match
+                            usrFound = true;
+                            let usr = JSON.parse(localStorage[key]);                                       //Stores data
+                            if(usr.password === password){                                                 //Checks if logged password and entered password match
+                                sessionStorage.loggedInUser = username;
+                                document.getElementById("response").innerHTML= "Logged in.";
+                            }
+                            else{
+                                document.getElementById("response").innerHTML= "Incorrect password.";
+                            }
+                        }
+                    }
+                    if(!usrFound){
+                        document.getElementById("response").innerHTML= "User not found";
+                    }
+                }
+
+                //LOGOUT
+
+                function leave(){
+                    sessionStorage.loggedInUser = "No One Is Logged In";
+                }
+
+            </Script>
+
+        </body>
+</html>

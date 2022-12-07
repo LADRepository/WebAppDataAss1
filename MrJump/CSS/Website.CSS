@@ -1,0 +1,111 @@
+/*REGISTRATION/LOGIN*/
+
+*{
+  background-color: aliceblue;
+}
+
+.reglog{
+  color: black;
+  font-size: 35px;
+}
+
+/*VALIDATION*/
+
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+
+.correct {
+  color: rgb(61, 150, 61);
+}
+
+.correct:before {
+  position: relative;
+  left: -30px;
+}
+
+.wrong {
+  color: rgb(163, 43, 43);
+}
+
+.wrong:before {
+  position: relative;
+  left: -30px;
+}
+    
+#emailmsg {
+  font-size: 30px;  
+  display:none;
+  color: #000;
+  position: relative;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+#emailmsg p {
+  padding: 10px 30px;
+  font-size: 18px;
+}
+
+#usernamemsg {
+  font-size: 30px;  
+  display:none;
+  color: #000;
+  position: relative;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+#usernamemsg p {
+  padding: 10px 30px;
+  font-size: 18px;
+}
+
+#firstnamemsg {
+  font-size: 30px;  
+  display:none;
+  color: #000;
+  position: relative;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+#firstnamemsg p {
+  padding: 10px 30px;
+  font-size: 18px;
+}
+
+#secondnamemsg {
+  font-size: 30px;  
+  display:none;
+  color: #000;
+  position: relative;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+#secondnamemsg p {
+  padding: 10px 30px;
+  font-size: 18px;
+}
+
+#passwordmsg {
+  font-size: 30px;  
+  display:none;
+  color: #000;
+  position: relative;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+#passwordmsg p {
+  padding: 10px 30px;
+  font-size: 18px;
+}

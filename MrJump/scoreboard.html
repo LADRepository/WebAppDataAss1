@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <title>Scoreboard</title>                                                               <!--Tab Name-->
+
+    </head>
+
+    <body>
+
+        <a href="JumperGame.HTML">Game</a>                                                      <!--Navigation-->              
+        <a href="Regi-Login-Logout.html">Register/Login</a>
+
+        <div id="Ranking"></div>
+
+        <script>
+
+            let str = "<table><tr><th>Name</th><th>Score</th></tr>";                            //Creates table
+            for(let key of Object.keys(localStorage)){
+                let usr = JSON.parse(localStorage[key]);                                        //Obtains data from key
+                str += "<tr><td>" + usr.username + "</td><td>" + usr.topScore + "</td></tr>";   //Displays user and their score 
+            }
+            str += "</table>";                                                                  //close table
+
+            document.getElementById("Ranking").innerHTML = str;
+
+        </script>
+
+    </body>
+
+</html>
